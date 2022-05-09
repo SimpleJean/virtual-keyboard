@@ -110,7 +110,7 @@ const createTextArea = () => {
   const textArea = document.createElement('textarea');
   textArea.classList.add('text-area');
   textArea.setAttribute('readonly', 'true');
-  textArea.setAttribute('rows', '10');
+  textArea.setAttribute('rows', '9');
   document.body.appendChild(textArea);
 };
 createTextArea();
@@ -183,8 +183,29 @@ const createRightPadButton = () => {
 };
 createRightPadButton();
 
+//Create a bottom pad button and append it to body
+const createBottomPadButton = () => {
+  const bottomPadButtonDiv = document.createElement('div');
+  bottomPadButtonDiv.classList.add('bottom-pad-button');
+
+  bottomPadButton.map((button) => {
+    const buttonElement = document.createElement('button');
+    buttonElement.classList.add('bottom-pad');
+    buttonElement.setAttribute('data', `${button}`);
+    buttonElement.textContent = button;
+    bottomPadButtonDiv.appendChild(buttonElement);
+    document.body.appendChild(bottomPadButtonDiv);
+    buttonElement.addEventListener('click', logClick);
+  });
+};
+createBottomPadButton();
+
 // Log click or keydown event
 function logClick(event) {
+  if (event.type === 'keydown' && event.key === 'Tab') {
+    const textArea = document.querySelector('.text-area');
+    textArea.value;
+  }
   if (event.type === 'click') {
     const key = event.target.textContent;
     const textArea = document.querySelector('.text-area');

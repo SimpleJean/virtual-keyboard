@@ -12,7 +12,6 @@ body {
   width: 100%;
   height: 100%;
   border: 1px solid #ccc;
-  padding: 10px;
   margin: 20px 0 20px 0;
   font-family: 'Courier New', Courier, monospace;
   font-size: 12px;
@@ -105,6 +104,30 @@ body {
   color: rgb(6, 2, 2);
   background-color: rgb(165, 152, 152);
   gap: 10px;
+}
+
+.bottom-pad-button {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.bottom-pad {
+  height: 10%;
+  border: 1px solid #ccc;
+  font-size: 20px;
+  line-height: 1.5em;
+  color: rgb(6, 2, 2);
+  background-color: rgb(165, 152, 152);
+}
+
+[data='Space'] {
+  width: 100%;
+  background-color: rgb(133, 1, 1);
+}
+
+.key-down {
+  background-color: rgb(43, 1, 133);
 }
 
 /* .ru {
