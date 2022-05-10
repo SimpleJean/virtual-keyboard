@@ -61,7 +61,18 @@ const createKeys = () => {
     '/',
     'Shift',
   ];
-  const fifthRowKeys = ['Ctrl', 'Win', 'Alt', 'Space', 'Alt', 'Ctrl'];
+  const fifthRowKeys = [
+    'Ctrl',
+    'Win',
+    'Alt',
+    'Space',
+    'Alt',
+    'Ctrl',
+    'ArrowLeft',
+    'ArrowDown',
+    'ArrowUp',
+    'ArrowRight',
+  ];
   return [
     firstRowKeys,
     secondRowKeys,
@@ -75,7 +86,7 @@ const createKeys = () => {
 const createTextArea = () => {
   const textArea = document.createElement('textarea');
   textArea.classList.add('text-area');
-  textArea.setAttribute('readonly', 'true');
+  textArea.setAttribute('autofocus', 'true');
   textArea.setAttribute('rows', '10');
   document.body.appendChild(textArea);
 };
@@ -112,7 +123,11 @@ const initializeKeyboard = () => {
         key == 'Ctrl' ||
         key == 'Alt' ||
         key == 'Win' ||
-        key == 'Space'
+        key == 'Space' ||
+        key == 'ArrowLeft' ||
+        key == 'ArrowDown' ||
+        key == 'ArrowUp' ||
+        key == 'ArrowRight'
       ) {
         keyElement.setAttribute('data', `${key}`);
       } else {
@@ -142,7 +157,11 @@ function keydownListener(event) {
     key == 'Control' ||
     key == 'Alt' ||
     key == 'Win' ||
-    key == 'Space'
+    key == 'Space' ||
+    key == 'ArrowLeft' ||
+    key == 'ArrowDown' ||
+    key == 'ArrowUp' ||
+    key == 'ArrowRight'
   ) {
     return;
   } else {
@@ -160,14 +179,62 @@ function keydownListener(event) {
   }
 }
 //Create a function to enter button for new line
-const createEnterButton = () => {
+const createEnterButton = (event) => {
   const enterButton = document.querySelector('[data="Enter"]');
 
   function enterButtonListener() {
     const textArea = document.querySelector('.text-area');
     textArea.value += '\n';
   }
-  enterButton.addEventListener('keydown', enterButtonListener);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key == 'Enter') {
+      const textArea = document.querySelector('.text-area');
+      textArea.value += '\n';
+    }
+  }); // need to understand this
   enterButton.addEventListener('click', enterButtonListener);
 };
 createEnterButton();
+
+//Create a function to backspace button
+const createBackspaceButton = (event) => {
+  const backspaceButton = document.querySelector('[data="Backspace"]');
+
+  function backspaceButtonListener() {
+    const textArea = document.querySelector('.text-area');
+    textArea.value = textArea.value.slice(0, -1);
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key == 'Backspace') {
+      const textArea = document.querySelector('.text-area');
+      textArea.value = textArea.value.slice(0, -1);
+    }
+  });
+  backspaceButton.addEventListener('click', backspaceButtonListener);
+};
+createBackspaceButton();
+
+//Create a function to shift buttons
+const createShiftButtons = () => {
+  const shiftButtons = document.querySelectorAll('[data="Shift"]');
+
+  function shiftButtonListener() {
+    const textArea = document.querySelector('.text-area');
+    textArea.value = textArea.value.toUpperCase();
+  }
+
+  shiftButtons.forEach((btn) => {
+    btn.addEventListener('click', shiftButtonListener); //not sure about this
+  });
+
+  shiftButtons.forEach((btn) => {
+    document.addEventListener('keydown', (event) => {
+      if (event.key == 'Shift') {
+        const textArea = document.querySelector('.text-area');
+        textArea.value = textArea.value.toUpperCase();
+      }
+    });
+  });
+};
